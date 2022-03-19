@@ -10,8 +10,13 @@ const div3 =document.getElementById('num3');
 const div4 =document.getElementById('num4');
 const div5 =document.getElementById('num5');
 const numInseriti=document.getElementById('numeriInseriti');
+let clock;
 
 bottone.addEventListener('click', function() {
+
+    clock = setInterval(myFunctionInterval, 1000);
+    max=30;
+    countDown.innerText=max;
     numInseriti.innerText='';
     console.clear();
     let arrayNumeri=[];
@@ -26,7 +31,7 @@ bottone.addEventListener('click', function() {
     div3.innerText = arrayNumeri[2];
     div4.innerText = arrayNumeri[3];
     div5.innerText = arrayNumeri[4];
-    setTimeout(arrayVuoti,3000,arrayNumeri);
+    setTimeout(arrayVuoti,30000,arrayNumeri);
 })
 
 function inserisciNumeri(array){
@@ -34,12 +39,14 @@ function inserisciNumeri(array){
     let chiediNumeri=0;
     for(let i = 0; i < 5 ; i++){
         chiediNumeri=parseInt(prompt("inserisci numeri"));
-        if(array.includes(chiediNumeri)){
+        if(array.includes(chiediNumeri) && !numeriInseriti.includes(chiediNumeri)){
             numeriInseriti.push(chiediNumeri)
 
+
         }
+        
     }
-    numInseriti.innerText= 'hai indovinato i numeri: ' + numeriInseriti;
+    numInseriti.innerText= 'hai indovinato '+ numeriInseriti.length +' numeri/o: '+ numeriInseriti ;
 }
 
 
@@ -51,4 +58,23 @@ function arrayVuoti(array){
     div4.innerText = '';
     div5.innerText = '';    
     setTimeout(inserisciNumeri,1000,array);
+
+}
+
+
+
+let max = 30;
+
+const countDown = document.getElementById('countDown');
+countDown.innerText = max;
+
+
+
+function myFunctionInterval() {
+    max--;
+    countDown.innerText = max;
+    if (max <= 0){
+         clearInterval(clock); // cancello il setInterval
+    }
+
 }
